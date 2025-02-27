@@ -25,6 +25,25 @@ class BookController extends Controller
         ]);
     }
 
+    public function updateBook()
+{
+    $book = Book::find(1);
+    $book->harga = 16000000;
+    $book->save();
+
+    return "Harga buku diperbarui!";
+}
+
+public function deleteBook($id)
+{
+    $book = Book::find($id);
+    if ($book) {
+        $book->delete();
+        return "Buku dengan ID $id berhasil dihapus.";
+    } else {
+        return "Buku tidak ditemukan.";
+    }
+}
 
 
     public function __construct()

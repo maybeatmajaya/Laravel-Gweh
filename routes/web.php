@@ -3,7 +3,7 @@
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 // use App\Http\Controllers\DashboardController;
-// use App\Http\Controllers\UserController;
+use App\Http\Controllers\UserController;
 
 // // Route untuk dashboard pengguna
 // Route::get('/dashboard', function () {
@@ -14,6 +14,9 @@ use Illuminate\Support\Facades\Route;
 //     }
 //     // return redirect('/login'); // Jika belum login, arahkan ke halaman login
 // });
+
+Route::get('/user/{id}/profile', [UserController::class, 'showProfile']);
+
 
 Route::get('/dashboard', function () {
     $user = (object) ['role' => 'guest']; // Set user default sebagai guest
