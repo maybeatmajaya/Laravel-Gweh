@@ -2,21 +2,12 @@
 
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
-// use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\BukuController;
 
-// // Route untuk dashboard pengguna
-// Route::get('/dashboard', function () {
-//     // Pastikan user sudah login
-//     if (Auth::check()) {
-//         $user = Auth::user(); // Ambil data user yang sedang login
-//         return view('dashboard', compact('user'));
-//     }
-//     // return redirect('/login'); // Jika belum login, arahkan ke halaman login
-// });
+Route::get ('/buku', [BukuController::class, 'index']);
 
 Route::get('/user/{id}/profile', [UserController::class, 'showProfile']);
-
 
 Route::get('/dashboard', function () {
     $user = (object) ['role' => 'guest']; // Set user default sebagai guest
