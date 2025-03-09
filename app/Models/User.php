@@ -13,12 +13,14 @@ class User extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['name', 'email', 'password'];
+    protected $fillable = [
+        'username', 'email', 'password', 'nama_lengkap', 'alamat', 'gaji_pokok', 'potongan'
+    ];
+    public $timestamps = true; // aktifkan timestamps
 
-    public function profile()
-    {
-        return $this->hasOne(Profile::class);
-    }
+    protected $hidden = ['password'];
+
+
 }
 
 

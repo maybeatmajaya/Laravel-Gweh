@@ -4,15 +4,30 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\BukuController;
+use App\Http\Controllers\RegisterController;
+use App\Models\User;
+
+Route::get('/register', function() {
+    return view('register'); // Menampilkan view register.blade.php
+});
+// ->name('register');
+
+Route::get('/dashboard', function () {
+    $users = User::all();
+    return view('dashboard', compact('users'));
+});
+
+Route::get('/register', [RegisterController::class, 'showForm']);
+Route::post('/register', [RegisterController::class, 'submitForm']);
 
 Route::get ('/buku', [BukuController::class, 'index']);
 
 Route::get('/user/{id}/profile', [UserController::class, 'showProfile']);
 
-Route::get('/dashboard', function () {
-    $user = (object) ['role' => 'guest']; // Set user default sebagai guest
-    return view('dashboard', compact('user'));
-});
+// Route::get('/dashboard', function () {
+//     $user = (object) ['role' => 'guest']; // Set user default sebagai guest
+//     return view('dashboard', compact('user'));
+// });
 
 // Route untuk halaman greeting
 Route::get('/greeting', function () {
