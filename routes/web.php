@@ -7,6 +7,14 @@ use App\Http\Controllers\BukuController;
 use App\Http\Controllers\RegisterController;
 use App\Models\User;
 
+Route::get('/admin', function  () {
+    return "Halaman Admin";
+})->middleware('cek.role:admin');
+
+Route::get('/akses/{age}',function(){
+    return "Selamat Datang!";
+})->middleware('cek.usia');
+
 Route::get('/register', function() {
     return view('register'); // Menampilkan view register.blade.php
 });
