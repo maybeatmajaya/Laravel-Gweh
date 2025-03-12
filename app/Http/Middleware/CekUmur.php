@@ -22,9 +22,9 @@ class CekUmur
         return $next($request);
     }
 
-    public function terminate($request, $response)
-    {
-        Log::info('Request selesai', ['url' => $request->fullUrl()]);
-        // Store the session data...
-    }
+    // public function terminate($request, $response)
+    // {
+    //     Log::info('Request selesai', ['url' => $request->fullUrl()]);
+    //     // Store the session data...
+    // }
 }
