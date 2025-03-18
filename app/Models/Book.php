@@ -11,12 +11,14 @@ class Book extends Model
     protected $table = 'books';
     // nama tabel dalam database(jika tidak sesuau dengan konvensi laravel)
 
-    protected $fillable = ['nama', 'harga', 'stok'];
-    // mass assignment protection, atribut yang boleh diisi oleh user
+    protected $fillable = ['title', 'description', 'status'];
+    // kolom yang bisa diisi
 
-    protected $primaryKey = 'id_book';
+    protected $primaryKey = 'id';
 
     public $incrementing = false;
 
     protected $keyType = 'string';
+
+
 }

@@ -7,13 +7,19 @@ use App\Http\Controllers\BukuController;
 use App\Http\Controllers\RegisterController;
 use App\Models\User;
 
+Route::get('/', function () {
+    return view('welcome');
+});
+
+
 Route::get('/admin', function  () {
     return "Halaman Admin";
 })->middleware('cek.role:admin');
 
-Route::get('/akses/{age}',function(){
+Route::get('/akses/{age}', function ($age) {
     return "Selamat Datang!";
-})->middleware('cek.usia');
+})->middleware('cek.umur:18'); // Pastikan middleware menerima parameter umur
+
 
 Route::get('/register', function() {
     return view('register'); // Menampilkan view register.blade.php
@@ -21,9 +27,9 @@ Route::get('/register', function() {
 // ->name('register');
 
 Route::get('/dashboard', function () {
-    $users = User::all();
-    return view('dashboard', compact('users'));
-});
+    // $users = User::all();
+    return view('dashboard');
+})->middleware('cek.umur:17');
 
 Route::get('/register', [RegisterController::class, 'showForm']);
 Route::post('/register', [RegisterController::class, 'submitForm']);

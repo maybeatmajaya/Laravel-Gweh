@@ -9,18 +9,24 @@ use Illuminate\Support\Facades\Log;
 
 class CekUmur
 {
-    /**
-     * Handle an incoming request.
-     *
-     * @param  \Closure(\Illuminate\Http\Request): (\Symfony\Component\HttpFoundation\Response)  $next
-     */
-    public function handle(Request $request, Closure $next, $role)
-    {
-        if ($request->user()->role !== $role) {
-            return response()->json(['message' => 'akses ditolak, role anda bukan admin'], 403);
-        }
-        return $next($request);
+    public function handle(Request $request, Closure $next, $umur=null)
+{
+    if ($request->input('age') < $umur) {
+        return response('Anda tidak cukup umur.', 403);
     }
+
+    return $next($request);
+}
+
+
+
+    // public function handle(Request $request, Closure $next, $role)
+    // {
+    //     if ($request->user()->role !== $role) {
+    //         return response()->json(['message' => 'akses ditolak, role anda bukan admin'], 403);
+    //     }
+    //     return $next($request);
+    // }
 
     // public function terminate($request, $response)
     // {

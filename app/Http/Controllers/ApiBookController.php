@@ -13,12 +13,12 @@ class ApiBookController extends Controller
      */
     public function index()
     {
-        return response()->json(Book::all());
+        return response()->json(Book::all(),);
     }
 
     public function show($id)
     {
-        return response()
+        return response()->json(Book::find($id));
     }
 
     /**

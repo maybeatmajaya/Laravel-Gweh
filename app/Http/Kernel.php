@@ -70,6 +70,7 @@ class Kernel extends HttpKernel
     ];
 
     protected $routeMiddleware = [
+        'cek.umur' => \App\Http\Middleware\CekUmur::class,
         'cek.usia' => \App\Http\Middleware\CekUmur::class,
     ];
 }

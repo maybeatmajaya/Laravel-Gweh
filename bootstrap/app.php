@@ -1,5 +1,17 @@
 <?php
 
+use Illuminate\Foundation\Application;
+
+// return Application::
+// configure(basePath: dirname(__DIR__))
+// ->withRouting(
+// web: __DIR__.'/../routes/web.php',
+// api: __DIR__.'/../routes/api.php',
+// commands: __DIR__.'/../routes/console.php',
+// health: '/up',
+// apiPrefix: '/api'
+// );
+
 /*
 |--------------------------------------------------------------------------
 | Create The Application
@@ -11,7 +23,7 @@
 |
 */
 
-$app = new Illuminate\Foundation\Application(
+$app = new Application(
     $_ENV['APP_BASE_PATH'] ?? dirname(__DIR__)
 );
 
@@ -26,6 +38,7 @@ $app = new Illuminate\Foundation\Application(
 |
 */
 
+// Load konfigurasi dan binding service container di Laravel
 $app->singleton(
     Illuminate\Contracts\Http\Kernel::class,
     App\Http\Kernel::class
