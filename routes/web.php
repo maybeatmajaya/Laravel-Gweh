@@ -6,6 +6,22 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\BukuController;
 use App\Http\Controllers\RegisterController;
 use App\Models\User;
+use App\Http\Controllers\FileController;
+
+// Tampilkan form upload
+Route::get('/form', function () {
+    return view('upload');
+});
+
+// Proses file upload
+Route::post('/upload', function (\Illuminate\Http\Request $request) {
+    $request->file('document')->store('documents');
+    return 'berhasil di-upload!';
+});
+
+
+
+Route::get('/file', [FileController::class, 'upload']); // Route untuk upload file
 
 Route::get('/', function () {
     return view('welcome');
@@ -68,3 +84,4 @@ Route::fallback(function () {
 Route::get('/content', function () {
     return view('content');
 });
+
