@@ -7,6 +7,9 @@ use App\Http\Controllers\BukuController;
 use App\Http\Controllers\RegisterController;
 use App\Models\User;
 use App\Http\Controllers\FileController;
+use App\Http\Controllers\LaporanController;
+
+Route::get('/laporan', [LaporanController::class, 'generatePDF']);
 
 // Tampilkan form upload
 Route::get('/form', function () {

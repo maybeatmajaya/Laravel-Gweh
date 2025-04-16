@@ -11,27 +11,41 @@ class FileController extends Controller
     {
         // Validasi file yang diupload
         $request->validate([
-            'document' => 'required|file|mimes:pdf,doc,docx|max:2048', // Validasi file
+            'document' => 'required|file|max:10240', // Maksimal 10MB
         ]);
-        // Pastikan ada file yang diupload
-        
-        // Mengambil file dari request
-        $file = $request->file('document');
 
-        // Membuat nama file baru dengan format timestamp + nama asli file
-        $filename = time() . '.' . $file->getClientOriginalName();
+        if ($request->hasFile('document') && $request->file('document')->isValid()) {
+            // Mengambil file dari request
+            $file = $request->file('document');
 
-        // Menyimpan file dengan nama yang sudah diubah ke folder documents di disk public
-        $path = $file->storeAs('documents', $filename, 'public');
+            // Dapatkan ekstensi file
+            $extension = $file->getClientOriginalExtension();
 
-        // Alternatif jika ingin menggunakan UUID
-        // use Illuminate\Support\Str;
-        // $filename = Str::uuid() . '.' . $file->getClientOriginalExtension();
+            // Hitung jumlah file di folder uploads
+            $uploadPath = storage_path('app/public/uploads');
+            $uploadCount = 1;
 
-        return "File uploaded: $path";
+            // Pastikan folder uploads ada
+            if (!file_exists($uploadPath)) {
+                mkdir($uploadPath, 0755, true);
+            } else {
+                // Hitung file yang sudah ada di folder
+                $existingFiles = array_filter(scandir($uploadPath), function($item) {
+                    return !in_array($item, ['.', '..']);
+                });
+                $uploadCount = count($existingFiles) + 1;
+            }
 
-        // Contoh lain untuk menyimpan text file
-        // Storage::put('file.txt', 'isi dari text file');
-        // return 'File berhasil disimpan!';
+            // Format nama file: upload-ke-X-YmdHis.extension
+            $fileName = 'upload-ke-' . $uploadCount . '-' . date('YmdHis') . '.' . $extension;
+
+            // Simpan file dengan nama baru
+            $path = $file->storeAs('uploads', $fileName, 'public');
+
+            // Redirect dengan pesan sukses
+            return redirect()->back()->with('success', 'File berhasil diupload: ' . $fileName);
+        }
+
+        return redirect()->back()->with('error', 'Terjadi kesalahan saat mengupload file.');
     }
 }
