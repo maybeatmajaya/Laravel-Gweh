@@ -8,9 +8,16 @@ use App\Http\Controllers\RegisterController;
 use App\Models\User;
 use App\Http\Controllers\FileController;
 use App\Http\Controllers\LaporanController;
+use App\Events\MessageSent;
 
+// route broadcast
+Route::get('/send', function () {
+    broadcast(new MessageSent('Hello, ini adalah pesan!'));
+    return 'Message sent!';
+});
+
+// route laporan
 Route::get('/laporan', [LaporanController::class, 'generatePDF']);
-
 // Tampilkan form upload
 Route::get('/form', function () {
     return view('upload');
@@ -19,11 +26,10 @@ Route::get('/form', function () {
 // Proses file upload
 Route::post('/upload', function (\Illuminate\Http\Request $request) {
     $request->file('document')->store('documents');
-    return 'berhasil di-upload!';
+    return 'File berhasil di-upload!';
 });
 
-
-
+// Route untuk menampilkan form upload
 Route::get('/file', [FileController::class, 'upload']); // Route untuk upload file
 
 Route::get('/', function () {
