@@ -9,6 +9,9 @@ use App\Models\User;
 use App\Http\Controllers\FileController;
 use App\Http\Controllers\LaporanController;
 use App\Events\MessageSent;
+use App\Http\Controllers\ReceiptController;
+
+Route::get('/print', [\App\Http\Controllers\ReceiptController::class, 'index']);    
 
 // route broadcast
 Route::get('/send', function () {
